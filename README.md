@@ -2,4 +2,4 @@
 
 Repositorio de codigos variados.
 
-Corro: fw.garcia@uniandes.edu.co
+Correo: fw.garcia@uniandes.edu.co
