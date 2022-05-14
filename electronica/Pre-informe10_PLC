@@ -1,0 +1,53 @@
+void setup(){
+    //pines entrada
+    pin.mode(2,INPUT);
+    pin.mode(3,INPUT);
+    //pines salida
+    pin.mode(7,OUTPUT);
+    pin.mode(8,OUTPUT);
+    pin.mode(9,OUTPUT);
+    
+}
+
+void loop(){
+    //declaracion
+    bool p2,p3,p7,p8,p9,u1,u3;
+
+    //lectura
+    p2=digitalRead(2);
+    p3=digitalRead(3);
+    //Negadores
+    u1=true;
+    u3=true;
+    if (p2){
+        u1=false;
+    }
+    if(p3){
+        u3=false;
+    }
+
+    //C
+    p7=L0W;
+    if (p3&&u1){
+        p7=HIGH;
+    }
+    digitalWrite(7,p7);
+
+    //D
+    p8=LOW;
+    if(p2&&u3){
+        p8=HIGH;
+    }
+
+    digitalWrite(8,p8);
+    
+    //Y
+    p9=HIGH;
+    if (p7 == p8){
+        p9=LOW;
+    }
+
+    digitalWrite(9,p9);
+    
+    delay(1000)
+}

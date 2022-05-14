@@ -1,0 +1,40 @@
+void setup(){
+    //pines entrada
+    pin.mode(2,INPUT);
+    pin.mode(3,INPUT);
+    //pines salida
+    pin.mode(4,OUTPUT);
+    pin.mode(5,OUTPUT);
+    pin.mode(6,OUTPUT);
+    
+}
+
+void loop(){
+    //declaracion
+    bool p2,p3,p4,p5,p6;
+
+    //lectura
+    p2=digitalRead(2);
+    p3=digitalRead(3);
+
+    //NOT
+    p4=HIGH;
+    if (p2){
+        p4=LOW;
+    }
+    digitalWrite(4, p4);
+    //AND
+    p5=LOW;
+    if(p2&&p3){
+        p5=HIGH;
+    }
+    digitalWrite(5,p5);
+    //OR
+    p6=HIGH;
+    if(!p2||!p3){
+        p6=LOW;
+    }
+    digitalWrite(6,p6);
+
+    delay(1000)
+}

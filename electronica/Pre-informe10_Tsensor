@@ -1,0 +1,28 @@
+void setup(){
+    //tasa de muestreo
+    Serial.begin(9600);
+    //pin de salida;
+    pin.mode(1,OUTPUT);
+}
+
+void loop(){
+    //registro de señal
+    int s_0=analog.read(A0);
+    int s_1=analog.read(A1);
+
+    Serial.print("s_0 =");
+    Serial.print(s_0);
+    Serial.print("\n");
+    Serial.print("s_1 =");
+    Serial.print(s_1);
+
+    //condicionales
+     if (s_0 > s_1){
+         digitalWrite(1,HIGH);
+     }
+     else{
+         digitalWrite(1,LOW);
+     }
+
+     delay(1000)
+}
