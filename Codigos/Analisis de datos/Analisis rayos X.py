@@ -319,6 +319,7 @@ plt.title("Intensidad vs Longitud de onda (voltaje variable)")
 #%%
 K = df21_v[df21_v["Angulo"] == 20.3]
 
+
 Is = np.zeros(len(voltajes))
 x = np.zeros(len(voltajes))
 
@@ -329,6 +330,7 @@ for i in range(len(voltajes)):
 h = (max(x) - min(x))/200
 
 x_grid = np.arange(min(x),max(x), h)
+
 
 popt, pcov = curve_fit(fun2, x, Is) 
 
@@ -372,7 +374,7 @@ sns.scatterplot(data=df22_i,
         x="corrientes", y="Intensidad",
         label="Datos experimentales",color="#1ECBE1")
 
-plt.plot( x_grid , fun2(x_grid, *popt), 
+plt.plot( x_grid , fun3(x_grid, *popt), 
     label="Valores regresion (U_a-U_k varibale)"
     ,color="#E1341E", linestyle="dashed")
 
@@ -482,13 +484,17 @@ voltajes = ["13kV","15kV","17kV","19kV","21kV"
 
 i_s = [0,3,6,8]
 
-theta = df21_i["Angulo"]
+theta = df31["Angulo"]
 
 lam = 1E9* Bragg(np.radians(theta), 2.014E-10, 1)
 
 df31["Longitud de onda"] = lam
 
 #%%
+
+
+
+
 plt.figure()
 for i in i_s:
     sns.scatterplot(
@@ -498,5 +504,60 @@ for i in i_s:
     )
 plt.xlabel("λ [nm]")
 plt.ylabel("Intensidad")
+plt.vlines(0.075, 0, 4000, linestyles ="dotted", colors ="k", label="λ_0")
 plt.title("Intensidad vs Longitud de onda (Voltaje variable))")
+plt.legend()
+plt.savefig(__Ipath__ + "Actividad 4-1.png", dpi=1200)
+
+
+
+# %%
+
+"""
+Analisis
+"""
+
+url31="C:/Users/frawo/Documents/Programacion/Utilities/Data/Intermedio/CSV/Lambdas_minimos.csv"
+
+df32 = pd.read_csv(url31,
+                header=0)
+
+
+
+y = df32["Lambda"]
+
+x = df32["Voltaje"] 
+
+h = (max(x)-min(x))/200
+
+x_grid = np.arange(min(x),max(x),h) 
+
+lin4 = stats.linregress(x,y)
+
+b = round(lin4.slope,2)
+b_sterr = round(lin4.stderr,2)
+
+bbox = dict(boxstyle ="round",facecolor='white')
+
+plt.figure()
+
+sns.scatterplot(data = df32,
+                x="Voltaje",y="Lambda",
+                label="Datos experimentales",
+                color="#1ECBE1")
+
+plt.plot(x, lin4.intercept + lin4.slope*x, 
+         label='regresion',linestyle="dashed",
+         color="#E1341E")
+
+plt.annotate("b = {} +/- {}".format(b,b_sterr), xy=(0.04, 0.90),
+             bbox = bbox)
+
+plt.xlabel("1/Ua [kV^-1]")
+plt.xlabel("λ [nm]")
+plt.legend()
+plt.title("Lmabda minimo vs inverso de voltaje")
+
+plt.savefig(__Ipath__ + "Actvidad 4-2.png", dpi=1200)
+
 # %%
