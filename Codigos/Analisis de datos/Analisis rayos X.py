@@ -66,7 +66,7 @@ err = errorS1(2.014E-10, np.radians(theta))
 
 derror = pd.DataFrame()
 
-derror["ERROR"] =  10E9*err
+derror["ERROR"] =  1E9*err
 
 #%%
 
@@ -74,29 +74,25 @@ derror["ERROR"] =  10E9*err
 Graficacion 
 """
 
-_, axes = plt.subplots(1,2, figsize = (15, 5))
 
-axs1 = axes[0]
-axs2 = axes[1]
-
-sns.scatterplot(
-    data=df, x="Angulo", y="Intensidad",
-    ax=axs1, s=8, color="#1ECBE1")
-axs1.set_title('Intensidad vs Angulo ')
-axs1.set_xlabel('Ángulo de insidencia +/1 (°) ')
-axs1.set_ylabel('Intensidad +/- 1 (Imp/s)')
-axs1.errorbar(df["Longitud de onda"], df["Intensidad"] , xerr=0.1, fmt=' ' )
-
+plt.figure()
 sns.scatterplot(
     data=df, x="Longitud de onda", y="Intensidad",
-    ax=axs2, s=8, color="#1ECBE1")
-axs2.set_title('Intensidad vs Longitud de onda')
-axs2.set_xlabel('Longitud de onda +/- 0.1 (nm)')
-axs2.set_ylabel('Intensidad +/- 1 (Imp/s)')
-axs2.errorbar(df["Longitud de onda"], df["Intensidad"] , yerr=derror["ERROR"], fmt=' ' )
+    s=8, color="#1ECBE1", label="Datos experimentales")
+plt.title('Intensidad vs Longitud de onda')
+plt.xlabel('Longitud de onda +/- 0.1 (nm)')
+plt.ylabel('Intensidad +/- 1 (Imp/s)')
+plt.vlines(1E9*Bragg(np.radians(20.4),2.014E-10, 1), 0, 9005, 
+           linestyles ="dotted", colors ="k", 
+           label="k_alfa = {}".format(1E9*Bragg(np.radians(20.4),2.014E-10, 1)),color="#ED126E")
+plt.vlines(1E9*Bragg(np.radians(18),2.014E-10, 1), 0, 9005, 
+           linestyles ="dotted", colors ="k", 
+           label="k_beta = {}".format(1E9*Bragg(np.radians(18),2.014E-10, 1)), color="#6EED12")
+plt.errorbar(df["Longitud de onda"], df["Intensidad"] , yerr=derror["ERROR"], fmt=' ' )
+plt.legend()
 
 
-_.savefig(__Ipath__+'Actividad 1.png',dpi=1200)
+plt.savefig(__Ipath__+'Actividad 1.png',dpi=1200)
 
 # %%
 """
@@ -341,6 +337,7 @@ d = {"corrientes": x, "Intensidad":Is}
 df22_i = pd.DataFrame(d)
 bbox = dict(boxstyle ="round",facecolor='white')
 
+plt.figure()
 sns.scatterplot(data=df22_i,
         x="corrientes", y="Intensidad",
         label="Datos experimentales",color="#1ECBE1")
@@ -370,6 +367,7 @@ d = {"corrientes": x, "Intensidad":Is}
 df22_i = pd.DataFrame(d)
 bbox = dict(boxstyle ="round",facecolor='white')
 
+plt.figure()
 sns.scatterplot(data=df22_i,
         x="corrientes", y="Intensidad",
         label="Datos experimentales",color="#1ECBE1")
@@ -444,6 +442,8 @@ d = {"corrientes": x, "Intensidad":Is}
 df22_i = pd.DataFrame(d)
 bbox = dict(boxstyle ="round",facecolor='white')
 
+
+plt.figure()
 sns.scatterplot(data=df22_i,
         x="corrientes", y="Intensidad",
         label="Datos experimentales",color="#1ECBE1")
@@ -554,7 +554,7 @@ plt.annotate("b = {} +/- {}".format(b,b_sterr), xy=(0.04, 0.90),
              bbox = bbox)
 
 plt.xlabel("1/Ua [kV^-1]")
-plt.xlabel("λ [nm]")
+plt.ylabel("λ [nm]")
 plt.legend()
 plt.title("Lmabda minimo vs inverso de voltaje")
 
