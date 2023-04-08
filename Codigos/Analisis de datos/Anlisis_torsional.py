@@ -15,6 +15,15 @@ __Fpath__="../../"
 #%%
 
 """
+Actividad 1
+"""
+
+url= "Data/Intermedio/CSV_Torsion/Actividad_.csv"
+
+
+#%%
+
+"""
 Actividad 3
 """
 url=__Fpath__+"Data/Intermedio/CSV_Torsion/Actividad_3.csv"
@@ -63,26 +72,57 @@ m = round(lin3.slope,2)
 dm = round(lin3.stderr,2)
 
 """
+residuales
+"""
+
+y_comparation = lin3.intercept + lin3.slope*x
+
+dregresion["residuales"] = y - y_comparation
+
+"""
 Graficar 3-2
 """
 
-plt.figure()
+fig, axs = plt.subplots(ncols=1,nrows=2,
+                        gridspec_kw={'height_ratios':[3,1]},
+                        figsize=(8,8),sharex=True)
+
+plt.subplots_adjust(hspace=0.01)
+
+
+ax1 = axs[0]
+ax2 = axs[1]
+
+
+ax1.errorbar(x="corriente ",y="delta angulo",data=dregresion,
+             yerr=0.1,xerr=0.01,
+             fmt=" ",alpha=0.5,color="#1ECBE1",
+             label="Barras de error")
 
 sns.scatterplot(data=dregresion, x="corriente ", y="delta angulo",
-                color="#1ECBE1", label="Datos experimentales"
-                )
+                color="#1ECBE1", label="Datos experimentales",
+                ax=ax1)
 
-plt.plot(x_grid, lin3.intercept + lin3.slope*x_grid,
+ax1.plot(x_grid, lin3.intercept + lin3.slope*x_grid,
         label='regresion',linestyle="dashed",
         color="#E1341E"
-)
+        )
 
-plt.annotate("b = {} +/- {}".format(m,dm), xy=(0.0, 0.5),
+ax1.annotate("m = ({} +/- {}) rad/A".format(m,dm), xy=(0.0, 0.4),
              bbox = bbox)
 
-plt.xlabel("Corriente +/- 0.01 (A)")
-plt.ylabel("Delta de ángulo +/- 0.01 (rad)")
-plt.title("Delta de ángulo vs Corriente")
+ax1.legend()
+ax1.set_ylabel("Delta de ángulo (rad)")
+ax1.set_title("Delta de ángulo vs Corriente")
+
+
+sns.scatterplot(data=dregresion, x="corriente ",y="residuales",
+                color="#1ECBE1", label="error")
+
+ax2.axhline(0,0,1.05,ls ="--", 
+           color="#E1341E")
+ax2.set_ylabel("residuales")
+ax2.set_xlabel("Corriente (A)")
 
 plt.savefig(__Fpath__+"Images/Actividad_3-2.png",dpi=600)
 
@@ -112,6 +152,12 @@ Graficar E1
 
 plt.figure()
 
+
+plt.errorbar(x="frecuencia Hz",y="Amplitud mV",data=df41,
+             yerr=1E-6,xerr=1E-9,
+             fmt=" ",alpha=1,color="#1ECBE1",
+             label="Barras de error")
+
 sns.scatterplot(data=df41,x="frecuencia Hz", y="Amplitud mV",
                 color="#1ECBE1", label="Datos experimentales"
                 )
@@ -123,8 +169,8 @@ plt.vlines(w1, 0, 5000, linestyles ="dotted",
 plt.annotate("w1 = {}Hz".format(w1[0]), xy=(0.5, 3500),
              bbox = bbox)
 
-plt.xlabel("Frecuencia +/- 1E-6 (Hz)")
-plt.ylabel("Amplitud +/- 1E-6 (mV)")
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("Amplitud (mV)")
 plt.title("Amplitud vs Frecuencia primera configuración")
 plt.legend()
 
@@ -152,21 +198,26 @@ Graficar E2
 """
 
 
-plt.figure()
+fig = plt.figure()
+
+plt.errorbar(x="frecuencia Hz",y="Amplitud mV",data=df42,
+             yerr=1E-6,xerr=1E-9,
+             fmt=" ",alpha=1,color="#1ECBE1",
+             label="Barras de error")
 
 sns.scatterplot(data=df42,x="frecuencia Hz", y="Amplitud mV",
                 color="#1ECBE1", label="Datos experimentales"
                 )
 
-plt.vlines(w2, 0, 1200, linestyles ="dotted", 
+plt.vlines(w2, 600, 1200, linestyles ="dotted", 
            color="#E1341E", label="w2"
            )
 
 plt.annotate("w2 = {}Hz".format(w2[0]), xy=(0.5, 900),
              bbox = bbox)
 
-plt.xlabel("Frecuencia +/- 1E-6 (Hz)")
-plt.ylabel("Amplitud +/- 1E-6 (mV)")
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("Amplitud (mV)")
 plt.title("Amplitud vs Frecuencia segunda configuración")
 plt.legend()
 
