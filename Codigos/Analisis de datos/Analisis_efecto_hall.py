@@ -1,5 +1,4 @@
 #%%
-
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -337,7 +336,7 @@ sns.scatterplot(data=df, x="Inverso T",y="residuales",
 ax2.axhline(0,0,5000,ls ="--", 
            color="#E1341E")
 ax2.set_ylabel("error normalizado")
-ax2.set_xlabel("Inverso T (k^-1)")
+ax2.set_xlabel("Inverso T (K^-1)")
 
 #set the path file
 plt.savefig(__Fpath__+"Images/Actidad_4-1_N.png",dpi=600)
@@ -429,7 +428,7 @@ sns.scatterplot(data=df, x="Inverso T",y="residuales",
 ax2.axhline(0,0,5000,ls ="--", 
            color="#E1341E")
 ax2.set_ylabel("error normalizado")
-ax2.set_xlabel("Inverso T (k^-1)")
+ax2.set_xlabel("Inverso T (K^-1)")
 
 #set the path file
 plt.savefig(__Fpath__+"Images/Actidad_4-1_I.png",dpi=600)
@@ -447,8 +446,6 @@ Placa N
 url="Data\Intermedio\CSV_Efecto_Hall\Actvidad_4-2_TarjetaN.csv"
 
 df = pd.read_csv(__Fpath__+url)
-#%%
-print(df)
 
 #%%
 
@@ -462,11 +459,19 @@ Ip = 30E-3
 df["Rh"] = df["Voltaje Hall (V)"]/(B*Ip)
 df["sterrRh"] = error_3_1(df["Voltaje Hall (V)"],Ip,B,0.001,1E-3,dB)
 
+df["Inverso T"] = 1/(df["Temperatura (Cº)"]+273.15)
+df["sterrT"] = 1/np.power(df["Temperatura (Cº)"]+273.15,2)
 
+#%%
+df = df[ df["Inverso T"]<0.00295 ]
 
 #%%
 
-sns.scatterplot(data=df, x="Temperatura (Cº)", y="Rh",
+df["RhT"] = df["Rh"] * np.power((df["Temperatura (Cº)"]+273.15),3/2) 
+
+#%%
+
+sns.scatterplot(data=df, x="Inverso T", y="Rh",
                 color="#1ECBE1", label="Datos experimentales",
                 )
 # %%
