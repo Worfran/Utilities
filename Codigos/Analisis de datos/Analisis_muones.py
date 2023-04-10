@@ -15,6 +15,8 @@ sns.set_style('darkgrid')
 
 plt.rcParams["font.family"] = "serif"
 
+plt.rcParams["font.size"] = "16"
+
 bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
