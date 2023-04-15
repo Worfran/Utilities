@@ -88,6 +88,8 @@ m = round(lin.slope*1E3,2)
 
 dm = round(lin.stderr*1E3,2)
 
+b = lin.intercept
+
 y_comparation = lin.intercept + lin.slope*x
 
 dfp["residuales"] = y - y_comparation
