@@ -75,15 +75,13 @@ def plotting(k,cR,cG,cB,ax,curr_fig,img):
 """
 Reading the image
 """
-img = imread(__Fpath__+img1)
+img = imread(__Fpath__+img3)
 plt.imshow(img)
 
 
 """
 Aplaying compresion
 """
-
-img = imread(__Fpath__+img1)
 blue_channel = im2double(img[:, :, 0])
 green_channel = im2double(img[:, :, 1])
 red_channel = im2double(img[:, :, 2])
