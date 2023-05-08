@@ -23,7 +23,8 @@ __Fpath__="../../"
 
 img1 = "Data/Lineal2/Future.jpg"
 img2 = "Data/Lineal2/Cardenal Pantanero.jpg"
-img3 = "Data/Lineal2/Montaña.jpg"
+
+#img3 = "Data/Lineal2/Montaña.jpg"
 
 #%%
 """
@@ -48,7 +49,7 @@ def im2double(im):
 def plotting(k,cR,cG,cB,ax,curr_fig,img):
     """
     method to plot the approximate image for the given k values
-    k: ks to be use.
+    k: k to be use.
     cR-G-B: SVD for a single color channel
     ax: the axis plot 
     curr_fig: the figure to be plot
@@ -63,7 +64,7 @@ def plotting(k,cR,cG,cB,ax,curr_fig,img):
         channels_approx.append( U[:, :k] @ S[0:k, :k] @ V_T[:k, :])
 
     re_image = cv2.merge((channels_approx[2], channels_approx[1], channels_approx[0]))
-    ax[curr_fig][0].imshow(re_image, cmap='gray')
+    ax[curr_fig][0].imshow(re_image)
     ax[curr_fig][0].set_title("k = "+str(k))
     ax[curr_fig, 0].axis('off')
     ax[curr_fig][1].set_title("Original Image")
@@ -75,9 +76,9 @@ def plotting(k,cR,cG,cB,ax,curr_fig,img):
 """
 Reading the image
 """
-img = imread(__Fpath__+img3)
+img = imread(__Fpath__+img1)
 plt.imshow(img)
-
+plt.axis("off")
 
 """
 Aplaying compresion
