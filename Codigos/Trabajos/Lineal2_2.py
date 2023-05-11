@@ -64,11 +64,11 @@ def plotting(k,cR,cG,cB,ax,curr_fig,img):
         channels_approx.append( U[:, :k] @ S[0:k, :k] @ V_T[:k, :])
 
     re_image = cv2.merge((channels_approx[2], channels_approx[1], channels_approx[0]))
-    ax[curr_fig][0].imshow(re_image)
-    ax[curr_fig][0].set_title("k = "+str(k))
+    ax[curr_fig, 0].imshow(re_image)
+    ax[curr_fig, 0].set_title("k = "+str(k))
     ax[curr_fig, 0].axis('off')
-    ax[curr_fig][1].set_title("Original Image")
-    ax[curr_fig][1].imshow(img)
+    ax[curr_fig, 1].set_title("Original Image")
+    ax[curr_fig, 1].imshow(img)
     ax[curr_fig, 1].axis('off')
 
 
@@ -76,7 +76,7 @@ def plotting(k,cR,cG,cB,ax,curr_fig,img):
 """
 Reading the image
 """
-img = imread(__Fpath__+img1)
+img = imread(__Fpath__+img2)
 plt.imshow(img)
 plt.axis("off")
 
