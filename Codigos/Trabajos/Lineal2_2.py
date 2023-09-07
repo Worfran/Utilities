@@ -46,6 +46,7 @@ def im2double(im):
     info = np.iinfo(im.dtype) # Get the data type of the input image
     return im.astype(np.float) / info.max
 
+
 def plotting(k,cR,cG,cB,ax,curr_fig,img):
     """
     method to plot the approximate image for the given k values
