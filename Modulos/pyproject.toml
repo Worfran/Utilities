@@ -1,0 +1,10 @@
+[build-system]
+requires = ["hatchling", "numpy", "seaborn", "matplotlib", "pandas"]
+build-backend = "hatchling.build"
+
+[project]
+name = "graficadora"
+version = "0.5"
+authors = [{name = "Frank Worman Garcia Eslava", email = "fw.garcia@uniandes.edu.co"}]
+description = ""
+requires = ">=3.9"

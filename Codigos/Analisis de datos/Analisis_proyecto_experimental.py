@@ -21,7 +21,7 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-sufijo = "Data/Proyecto experimental/Frank_Majo_Proy_Exp/Grafeno/"
+
 
 #%%
 
@@ -30,7 +30,7 @@ Set the file
 """
 url ="100nm/50kV-1uA-5sLiveTime-Grafeno100nm.Spe"
 
-file = __Fpath__+sufijo+url
+file = __Fpath__+url
 
 #%%
 
