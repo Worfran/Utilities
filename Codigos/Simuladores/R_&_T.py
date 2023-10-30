@@ -3,8 +3,20 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
-from scipy.optimize import curve_fit
-from scipy import stats
+
+
+#%%
+"""
+Settings
+"""
+sns.set_style('darkgrid')
+
+plt.rcParams["font.family"] = "serif"
+
+plt.rcParams["font.size"] = "12"
+
+
+__Fpath__="../../"
 
 #%%
 
@@ -58,9 +70,24 @@ n2 =1.5
 arr_r = r(thetaI,n1, n2)
 arr_t = t(thetaI, n1, n2) 
 
-plt.plot(thetaI, arr_r)
-plt.plot(thetaI, arr_t)
+df = pd.DataFrame()
 
+df['T'] = arr_t
+df['R'] = arr_r
+df['thetaI'] = thetaI
+
+fig = plt.figure()
+sns.scatterplot(data=df, x='thetaI',y='T',
+                color="#1ECBE1",label='Coeficiente de transmicion')
+sns.scatterplot(data=df, x='thetaI',y='R',
+                color="#E1341E",label='Coeficiente de reflexion')
+
+plt.xlabel("Angulo Incidente (rad)")
+plt.ylabel("Coeficiente")
+plt.title("Coeficiente vs angulo de incidencia")
+plt.legend()
+
+plt.savefig(__Fpath__+"Images/Electro2_T3.png",dpi=600)
 
 
 
