@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.optimize import curve_fit
 from scipy import stats
+import os
+
 
 #%%
 """
@@ -21,25 +23,97 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
+folder_path =  __Fpath__ + "Data/Proyecto experimental/Datos_Avila/Interes3/"
+
+images_folder_path = __Fpath__ + "Images/Proyecto Experimental/"
 
 
 #%%
 
 """
-Set the file
+Funciones
 """
-url ="100nm/50kV-1uA-5sLiveTime-Grafeno100nm.Spe"
 
-file = __Fpath__+url
+def reader(file):
+    df = pd.read_csv(file, delimiter=",",  
+                    header=None, error_bad_lines=False)
+    columname = file_path[-9:-4]
+    df.rename(columns={0: columname}, inplace=True)
+    
+
+    return df, columname
+
+def plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title):
+    """
+    Plot multiple columns from a DataFrame on the same subplot using Seaborn.
+
+    Parameters:
+    - df: DataFrame containing the data
+    - x_key: Key for the x-axis
+    - y_keys: List of keys for the y-axes
+    - x_label: Label for the x-axis
+    - y_labels: List of labels for the y-axes
+    - plot_labels: List of labels for each plot in the subplot
+    - ax: Axes to plot on
+    """
+
+    for i, y_key in enumerate(y_keys):
+        sns.lineplot(x=df[x_key], y=df[y_key], label=plot_labels[i], ax=ax)
+    
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
+    ax.legend()
 
 #%%
-
 """
-Reading 
+Data
 """
 
-
-df = pd.read_csv(file, delimiter=" ",  
-                 header=None, error_bad_lines=False)
+df = pd.DataFrame()
+columnames = []
+for filename in os.listdir(folder_path):
+    file_path = folder_path + filename
+    df1, columname=reader(file_path)
+    df1 = df1.loc[30:600]
+    df[columname] = df1[columname]
+    columnames.append(columname)
 
 #%%
+"""
+Selecting the data
+"""
+
+for name in columnames:
+    maxd = max(df[name])
+    df[name] = df[name]/maxd 
+
+y_keys = [columnames[-1]] + [columnames[-2]]
+
+
+#%%
+"""
+Ploting
+"""
+n = len(df[columnames[0]])
+x = np.arange(0,n,1)
+
+df["canales"] = x
+
+# Create subplots
+fig, ax = plt.subplots(figsize=(8, 6))
+
+# Specify keys and labels
+x_key = "canales"
+x_label = "canales"
+y_label = "conteos"
+plot_labels = ["filtro", "Placa 1,2,3,4 y 5"]
+title = "Frecuencia normalizada por canal"
+
+# Call the function to plot data on multiple axes
+plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
+
+name = "todas_las_placas_vs_5filtros.png"
+plt.savefig(images_folder_path + name,dpi=600)
+
+# %%

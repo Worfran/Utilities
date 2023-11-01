@@ -61,15 +61,52 @@ def graficadorabarreror(df, xkey, ykey, xlabel,
     ax2.set_xlabel(xkey)
 
 
-def lineplot(df, xkey, ykey, xlabel, 
-                        ylabel, title, labels):
-    f,ax=plt.subplots(figsize=(20,10))
+def plot_dataframe_multiplesubplots(df, x_key, y_keys, x_label, y_labels, plot_labels, axes, title):
+    """
+    Plot multiple columns from a DataFrame on different subplots using Seaborn.
 
-    sns.lineplot(data = df, x = xkey, y = ykey,
-                 color = "#1ECBE1", label= labels)
+    Parameters:
+    - df: DataFrame containing the data
+    - x_key: Key for the x-axis
+    - y_keys: List of keys for the y-axes
+    - x_label: Label for the x-axis
+    - y_labels: List of labels for the y-axes
+    - plot_labels: List of labels for each plot in the subplot
+    - axes: List of Axes to plot on
+    - title: Title for the subplots
+    """
+
+    if len(y_keys) != len(axes):
+        raise ValueError("Number of y_keys must match the number of axes")
+
+    for i, (y_key, ax) in enumerate(zip(y_keys, axes)):
+        sns.scatterplot(x=df[x_key], y=df[y_key], label=plot_labels[i], ax=ax)
+
+        ax.set_xlabel(x_label)
+        ax.set_ylabel(y_labels[i])
+        ax.set_title(f"{title} - {plot_labels[i]}")
+        ax.legend()
+
+    plt.tight_layout()
+
+def plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title):
+    """
+    Plot multiple columns from a DataFrame on the same subplot using Seaborn.
+
+    Parameters:
+    - df: DataFrame containing the data
+    - x_key: Key for the x-axis
+    - y_keys: List of keys for the y-axes
+    - x_label: Label for the x-axis
+    - y_labels: List of labels for the y-axes
+    - plot_labels: List of labels for each plot in the subplot
+    - ax: Axes to plot on
+    """
+
+    for i, y_key in enumerate(y_keys):
+        sns.lineplot(x=df[x_key], y=df[y_key], label=plot_labels[i], ax=ax)
     
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
     ax.set_title(title)
-    ax.set_ylabel(ylabel)
-    ax.set_xlabel(xlabel)
-
-    return f,ax
+    ax.legend()
