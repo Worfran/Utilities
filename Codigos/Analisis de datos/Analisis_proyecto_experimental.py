@@ -23,9 +23,9 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data/Proyecto experimental/Datos_Avila/Interes3/"
+folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes2"
 
-images_folder_path = __Fpath__ + "Images/Proyecto Experimental/"
+images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_grafeno"
 
 
 #%%
@@ -73,7 +73,7 @@ Data
 df = pd.DataFrame()
 columnames = []
 for filename in os.listdir(folder_path):
-    file_path = folder_path + filename
+    file_path = folder_path + "\\"+filename
     df1, columname=reader(file_path)
     df1 = df1.loc[30:600]
     df[columname] = df1[columname]
@@ -88,8 +88,10 @@ for name in columnames:
     maxd = max(df[name])
     df[name] = df[name]/maxd 
 
-y_keys = [columnames[-1]] + [columnames[-2]]
 
+y_keys = [columnames[-1]] + columnames[:-1] 
+
+print(y_keys)
 
 #%%
 """
@@ -107,13 +109,13 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_key = "canales"
 x_label = "canales"
 y_label = "conteos"
-plot_labels = ["filtro", "Placa 1,2,3,4 y 5"]
-title = "Frecuencia normalizada por canal"
+plot_labels = ["filtro", '100nm', '150nm', '200nm', '250nm', '300nm' ]
+title = "Frecuencia normalizada por canal a 30Kev"
 
 # Call the function to plot data on multiple axes
 plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 
-name = "todas_las_placas_vs_5filtros.png"
-plt.savefig(images_folder_path + name,dpi=600)
+name = "placas_individuales.png"
+plt.savefig(images_folder_path + "\\" + name,dpi=600)
 
 # %%
