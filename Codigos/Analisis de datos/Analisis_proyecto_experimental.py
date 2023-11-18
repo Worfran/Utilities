@@ -23,9 +23,9 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes2"
+folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\Interes 2\\"
 
-images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_grafeno"
+images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_MoS2\\"
 
 
 #%%
@@ -37,7 +37,7 @@ Funciones
 def reader(file):
     df = pd.read_csv(file, delimiter=",",  
                     header=None, error_bad_lines=False)
-    columname = file_path[-9:-4]
+    columname = file_path[-10:]
     df.rename(columns={0: columname}, inplace=True)
     
 
@@ -73,7 +73,7 @@ Data
 df = pd.DataFrame()
 columnames = []
 for filename in os.listdir(folder_path):
-    file_path = folder_path + "\\"+filename
+    file_path = folder_path+filename
     df1, columname=reader(file_path)
     df1 = df1.loc[30:600]
     df[columname] = df1[columname]
@@ -88,8 +88,9 @@ for name in columnames:
     maxd = max(df[name])
     df[name] = df[name]/maxd 
 
+print(columnames)
 
-y_keys = [columnames[-1]] + columnames[:-1] 
+y_keys = [columnames[-2]] + [columnames [-1]] + columnames[:-2]
 
 print(y_keys)
 
@@ -109,13 +110,17 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_key = "canales"
 x_label = "canales"
 y_label = "conteos"
-plot_labels = ["filtro", '100nm', '150nm', '200nm', '250nm', '300nm' ]
+plot_labels = ["filtros", '950nm', '1350nm', '1700nm', '2000nm', '2250nm']
 title = "Frecuencia normalizada por canal a 30Kev"
 
 # Call the function to plot data on multiple axes
 plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 
-name = "placas_individuales.png"
-plt.savefig(images_folder_path + "\\" + name,dpi=600)
+"""
+Saving image
+""" 
+name = "placas_sumadas.png"
+plt.savefig(images_folder_path +  name,dpi=600)
+
 
 # %%
