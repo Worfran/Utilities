@@ -23,7 +23,7 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes3\\"
+folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes\\"
 
 images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_grafeno\\"
 
@@ -107,7 +107,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_key = "canales"
 x_label = "canales"
 y_label = "conteos"
-plot_labels = ["filtro",'250nm', '450nm', '700nm', '250nm', '1000nm']
+plot_labels = ["filtro",'250nm dos placas', '250nm']
 title = "Frecuencia por canal a 30KV"
 
 # Call the function to plot data on multiple axes
@@ -116,7 +116,7 @@ plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 """
 Saving image
 """ 
-name = "placas_sumadas.png"
+name = "placas_sumadas_vs_individual.png"
 plt.savefig(images_folder_path +  name,dpi=600)
 
 
