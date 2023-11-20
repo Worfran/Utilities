@@ -83,14 +83,11 @@ for filename in os.listdir(folder_path):
 """
 Selecting the data
 """
-
-for name in columnames:
-    maxd = max(df[name])
-    df[name] = df[name]/maxd 
+ 
 
 print(columnames)
 
-y_keys = [columnames[-2]] + [columnames [-1]] + columnames[:-2]
+y_keys = [columnames [-2]] +  [columnames [-1]] + columnames[:-2]
 
 print(y_keys)
 
@@ -110,8 +107,8 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_key = "canales"
 x_label = "canales"
 y_label = "conteos"
-plot_labels = ["filtros", '950nm', '1350nm', '1700nm', '2000nm', '2250nm']
-title = "Frecuencia normalizada por canal a 30Kev"
+plot_labels = ["filtro",'950nm', '1350nm', '1700nm', '2000nm', '2250nm']
+title = "Frecuencia por canal a 30Kev"
 
 # Call the function to plot data on multiple axes
 plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
@@ -119,7 +116,7 @@ plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 """
 Saving image
 """ 
-name = "placas_sumadas.png"
+name = "placas_sumadas_a.png"
 plt.savefig(images_folder_path +  name,dpi=600)
 
 
