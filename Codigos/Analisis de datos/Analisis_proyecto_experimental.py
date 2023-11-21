@@ -1,5 +1,4 @@
 #%%
-
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -8,8 +7,6 @@ from scipy.optimize import curve_fit
 from scipy import stats
 import os
 from scipy import signal
-
-
 
 #%%
 """
@@ -25,9 +22,11 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes2\\"
+folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\Interes 2\\"
 
-images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_grafeno\\"
+images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_MoS2\\"
+
+file_ch = __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\Energy_ch.csv"
 
 
 #%%
@@ -83,13 +82,25 @@ for filename in os.listdir(folder_path):
 
 #%%
 """
+Energy chanel 
+"""
+
+df1, columname = reader(file_ch)
+
+x_key = 'ch_energy'
+df['ch_energy'] = df1[columname]
+
+print(df)
+
+#%%
+"""
 Selecting the data
 """
  
 
 print(columnames)
 
-y_keys =  [columnames [-1]] + columnames[:-1]
+y_keys =[columnames[-2]] + [columnames[-1]] + columnames[:-2]
 #y_keys = columnames
 
 print(y_keys)
@@ -118,11 +129,11 @@ df["canales"] = x
 fig, ax = plt.subplots(figsize=(8, 6))
 
 # Specify keys and labels
-x_key = "canales"
-x_label = "canales"
+#x_key = "canales"
+x_label = "Energia [keV]"
 y_label = "conteos"
-plot_labels = ["filtro", '100nm', '150nm', '200nm', '250nm', '300nm']
-title = "Frecuencia por canal a 30KV"
+plot_labels = ["filtro", '950nm', '1350nm', '1700nm', '2000nm', '2250nm']
+title = "Frecuencia por canal a 30kV"
 
 # Call the function to plot data on multiple axes
 plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
@@ -130,7 +141,7 @@ plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 """
 Saving image
 """ 
-name = "placas_individuales.png"
+name = "placas_sumadas.png"
 plt.savefig(images_folder_path +  name,dpi=600)
 
 
