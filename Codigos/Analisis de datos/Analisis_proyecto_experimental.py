@@ -7,6 +7,8 @@ import pandas as pd
 from scipy.optimize import curve_fit
 from scipy import stats
 import os
+from scipy import signal
+
 
 
 #%%
@@ -23,7 +25,7 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes\\"
+folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos Grafeno\Interes2\\"
 
 images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_grafeno\\"
 
@@ -87,9 +89,21 @@ Selecting the data
 
 print(columnames)
 
-y_keys = [columnames [-1]] + columnames[:-1]
+y_keys =  [columnames [-1]] + columnames[:-1]
+#y_keys = columnames
 
 print(y_keys)
+#%%
+
+"""
+Noise reduction 
+"""
+b, a = signal.butter(3, 0.05)
+
+for key in y_keys:
+    y = df[key]
+    yy = signal.filtfilt(b, a, y)
+    df[key] = yy
 
 #%%
 """
@@ -107,7 +121,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_key = "canales"
 x_label = "canales"
 y_label = "conteos"
-plot_labels = ["filtro",'250nm dos placas', '250nm']
+plot_labels = ["filtro", '100nm', '150nm', '200nm', '250nm', '300nm']
 title = "Frecuencia por canal a 30KV"
 
 # Call the function to plot data on multiple axes
@@ -116,7 +130,7 @@ plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 """
 Saving image
 """ 
-name = "placas_sumadas_vs_individual.png"
+name = "placas_individuales.png"
 plt.savefig(images_folder_path +  name,dpi=600)
 
 
