@@ -22,7 +22,7 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\Interes 2\\"
+folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\\50kV\Interes2\\"
 
 images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_MoS2\\"
 
@@ -100,7 +100,7 @@ Selecting the data
 
 print(columnames)
 
-y_keys =[columnames[-2]] + [columnames[-1]] + columnames[:-2]
+y_keys = [columnames[-2]] + [columnames[-1]] + columnames[:-2]
 #y_keys = columnames
 
 print(y_keys)
@@ -133,7 +133,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_label = "Energia [keV]"
 y_label = "conteos"
 plot_labels = ["filtro", '950nm', '1350nm', '1700nm', '2000nm', '2250nm']
-title = "Frecuencia por canal a 30kV"
+title = "Frecuencia por canal a 50kV"
 
 # Call the function to plot data on multiple axes
 plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
@@ -141,8 +141,13 @@ plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 """
 Saving image
 """ 
-name = "placas_sumadas.png"
+name = "placas_Sumadas_MoS2_50kV.png"
 plt.savefig(images_folder_path +  name,dpi=600)
 
 
-# %%
+#%%
+
+"""
+Atenuation 
+"""
+
