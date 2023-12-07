@@ -23,9 +23,9 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path1 =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\\50kV\Interes\\"
+folder_path1 =  __Fpath__ + "Data/Proyecto experimental/Datos_Avila/Datos MoS2/50kV/Interes/"
 
-folder_path2 =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\\50kV\Interes2\\"
+folder_path2 =  __Fpath__ + "Data/Proyecto experimental/Datos_Avila/Datos MoS2/50kV/Interes2/"
 
 #%%
 
