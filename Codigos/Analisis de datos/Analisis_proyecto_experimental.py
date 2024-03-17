@@ -22,11 +22,11 @@ bbox = dict(boxstyle ="round",facecolor='white')
 
 __Fpath__="../../"
 
-folder_path =  __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\\50kV\Interes2\\"
+folder_path =  __Fpath__ + "Data/Proyecto experimental/Datos_Avila/Datos MoS2/50kV/Interes2/"
 
-images_folder_path = __Fpath__ + "Images\Proyecto Experimental\Datos_MoS2\\"
+images_folder_path = __Fpath__ + "Images/Proyecto Experimental/Datos_MoS2/"
 
-file_ch = __Fpath__ + "Data\Proyecto experimental\Datos_Avila\Datos MoS2\Energy_ch.csv"
+file_ch = __Fpath__ + "Data/Proyecto experimental/Datos_Avila/Datos MoS2/Energy_ch.csv"
 
 
 #%%
@@ -37,7 +37,7 @@ Funciones
 
 def reader(file):
     df = pd.read_csv(file, delimiter=",",  
-                    header=None, error_bad_lines=False)
+                    header=None,)
     columname = file_path[-10:]
     df.rename(columns={0: columname}, inplace=True)
     
@@ -142,7 +142,7 @@ plot_dataframe(df, x_key, y_keys, x_label, y_label, plot_labels, ax, title)
 Saving image
 """ 
 name = "placas_Sumadas_MoS2_50kV.png"
-plt.savefig(images_folder_path +  name,dpi=600)
+#plt.savefig(images_folder_path +  name,dpi=600)
 
 
 #%%
